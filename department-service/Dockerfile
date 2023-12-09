@@ -1,9 +1,3 @@
-# FROM openjdk:11
-# ARG JAR_FILE=target/*.jar
-# COPY ${JAR_FILE} user-service.jar
-# ENTRYPOINT ["java","-jar","/user-service.jar"]
-# EXPOSE 9002
-
 #Stage 1
 FROM maven:3.8.3-openjdk-11 AS build
 WORKDIR /app
@@ -17,4 +11,4 @@ FROM adoptopenjdk/openjdk11:jre-11.0.9_11-alpine
 WORKDIR /app
 COPY --from=build /app/target/*.jar /app/user-service.jar
 ENTRYPOINT ["java", "-jar", "/app/user-service.jar"]
-EXPOSE 9002
+EXPOSE 9001
