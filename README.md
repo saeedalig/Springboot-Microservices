@@ -41,7 +41,9 @@ Each microservice might have Hystrix annotations to define fallback methods and 
 - If needed, the microservice might fetch configuration settings from the Configuration Server (cloud-config-server).
 - Hystrix metrics are collected during the process, and the results can be monitored through the Hystrix Dashboard.
 
-### Application Deployment
+![Alt text](images/arch.png)
+
+## Application Deployment
 
 **Prerequisites**
 Before proceeding with deployment, ensure the following prerequisites are met:
@@ -71,9 +73,25 @@ kubectl apply -f ./
 ```
 This command will create all the resources defined in the directory simulteneously.
 
+To verify the resources
+```
+kubectl get all
+```
+![Alt text](images/k8s.png)
+
 ## Services
 As for as services are concerned, I've created service of type **ClusterIP** for internal communication whereas  API Gateway is associated with **LoadBalancer** type of service, responsible for traversing the external request to corresponding microservices. For Hystrix Dashboard, **NodePort** service has been created.
 
-Additionally, pod for `service-registry` was created using **StatefulSet** instead of Deployment to keep a unique and stable identity in the form of a hostname, which is based on the name of the StatefulSet and the pod index. This makes it easier to maintain a consistent identity for the Service Registry, aiding in service discovery. When creating StatefulSets we need to use  ***headless services***, which means that each pod has its own DNS or Endpoint entry. Headless Services don't create any IP Address. This is useful for scenarios where you need to perform DNS-based service discovery, which is common in Service Registries.
+Additionally, pod for `service-registry` was created using **StatefulSet** instead of**Deployment** to keep a unique and stable identity in the form of a hostname, which is based on the name of the StatefulSet and the pod index. This makes it easier to maintain a consistent identity for the Service Registry, aiding in service discovery. When creating StatefulSets we need to use  ***headless services***, which means that each pod has its own DNS or Endpoint entry. Headless Services don't create any IP Address. This is useful for scenarios where you need to perform DNS-based service discovery, which is common in Service Registries.
 
+Once Microservices are deployed in kubernetes cluster, we need to do port-forwarding of the services to access it externally.
 
+Forwarding port of `cloud-gateway-svc` to access it from **Postman** to insert data in Application
+```
+kubectl port-forward services/cloud-gateway-svc 9191:80
+```
+Now you can access application using http://localhost:9191/departments url to hit **POST and GET** request.
+
+![Alt text](images/post.png)
+
+![Alt text](images/get.png)
