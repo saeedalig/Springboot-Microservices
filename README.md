@@ -1,6 +1,6 @@
 # Microservice Application Deployment Guide
-Springboot-Microservice Application:- Deploying in kubernetes cluster
-A user management application developed in Java using   `Springboot` framework that consists of following microservices:
+
+A user management application, developed using `Springboot` framework that consists of following microservices:
 - **cloud-config-server**
 - **cloud-gateway**
 - **department-service**
