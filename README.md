@@ -67,7 +67,7 @@ docker push <registry-url>/<username>/<service-name>:<tag>
 ```
 
 **3. Kubernetes Deployment**
-Go to the `miroservice-k8s-manifest` Directory configure accorgingly like chnaging the image names.
+Go to the `miroservice-k8s-manifest` Directory and configure yaml files accordingly like chnaging the image names.
 ```
 kubectl apply -f ./
 ```
