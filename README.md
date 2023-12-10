@@ -65,7 +65,15 @@ docker push <registry-url>/<username>/<service-name>:<tag>
 ```
 
 **3. Kubernetes Deployment**
-Go to the `miroservice-k8s-manifest` Direcory configure accorgingly like chnaging the image names.
+Go to the `miroservice-k8s-manifest` Directory configure accorgingly like chnaging the image names.
+```
+kubectl apply -f ./
+```
+This command will create all the resources defined in the directory simulteneously.
 
+## Services
+As for as services are concerned, I've created service of type **ClusterIP** for internal communication whereas  API Gateway is associated with **LoadBalancer** type of service, responsible for traversing the external request to corresponding microservices. For Hystrix Dashboard, **NodePort** service has been created.
+
+Additionally, pod for `service-registry` was created using **StatefulSet** instead of Deployment to keep a unique and stable identity in the form of a hostname, which is based on the name of the StatefulSet and the pod index. This makes it easier to maintain a consistent identity for the Service Registry, aiding in service discovery. When creating StatefulSets we need to use  ***headless services***, which means that each pod has its own DNS or Endpoint entry. Headless Services don't create any IP Address. This is useful for scenarios where you need to perform DNS-based service discovery, which is common in Service Registries.
 
 
