@@ -1,12 +1,12 @@
-# Microservices Application Deployment Guide
+# Microservice Application Deployment Guide
 Springboot-Microservice Application:- Deploying in kubernetes cluster
 A user management application developed in Java using   `Springboot` framework that consists of following microservices:
-**cloud-config-server
-cloud-gateway
-department-service
-hystrix-dashboard
-service-registry
-user-service**
+- **cloud-config-server**
+- **cloud-gateway**
+- **department-service**
+- **hystrix-dashboard**
+- **service-registry**
+- **user-service**
 
 ## Microservice Architecture
 In a microservices architecture, services interact with each other through well-defined APIs. Here's a brief overview of how the services in your setup might interact:
@@ -53,11 +53,14 @@ Before proceeding with deployment, ensure the following prerequisites are met:
 ## Steps to Deploy
 **1. Containerize Microservices**
 For each microservice, create a Dockerfile and build the Docker image. Example:
-```docker build -t <service-name>:<tag> .```
+```
+docker build -t <service-name>:<tag> .
+```
 
 **2. Push Docker Images**
 Tag and push Docker images to the container registry
-```docker tag <service-name>:<tag> <registry-url>/<username>/<service-name>:<tag>
+```
+docker tag <service-name>:<tag> <registry-url>/<username>/<service-name>:<tag>
 docker push <registry-url>/<username>/<service-name>:<tag>
 ```
 
